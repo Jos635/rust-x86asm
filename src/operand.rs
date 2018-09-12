@@ -1,6 +1,6 @@
 use ::instruction::{Reg, RegScale, SegmentReg};
 
-#[derive(PartialEq, Eq, Clone, Debug, Copy)]
+#[derive(PartialEq, Eq, Clone, Debug, Copy, Hash)]
 pub enum Operand {
    Direct(Reg),
    Indirect(Reg, Option<OperandSize>, Option<SegmentReg>),
@@ -178,7 +178,7 @@ impl Operand {
     }
 }
 
-#[derive(Copy, Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+#[derive(Copy, Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Hash)]
 pub enum OperandSize {
     // Order here is important because of derive(Ord)
     Unsized,

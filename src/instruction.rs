@@ -4,7 +4,7 @@ use ::encoding::{encode};
 use ::instruction_def::{find_instruction_def};
 use ::operand::{Operand, OperandSize};
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Hash, Eq)]
 pub struct Instruction {
     pub mnemonic: Mnemonic,
     pub operand1: Option<Operand>,
@@ -113,9 +113,7 @@ impl PartialEq for Instruction {
     }
 }
 
-impl Eq for Instruction { }
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum RoundingMode {
     Nearest,
     Down,
@@ -144,7 +142,7 @@ impl RoundingMode {
     }
 }
 
-#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+#[derive(PartialEq, Eq, Clone, Copy, Debug, Hash)]
 pub enum RegScale {
     One,
     Two,
@@ -173,7 +171,7 @@ impl RegScale {
     }
 }
 
-#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+#[derive(PartialEq, Eq, Clone, Copy, Debug, Hash)]
 pub enum SegmentReg {
     CS,
     DS,
@@ -937,14 +935,14 @@ impl Reg {
 }
 
 // AVX Merge Mode
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum MergeMode {
     Merge,
     Zero
 }
 
 // AVX Mask Register (k0-k7)
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum MaskReg {
     K0,
     K1,
@@ -986,7 +984,7 @@ impl MaskReg {
 }
 
 // AVX Broadcast Mode
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum BroadcastMode {
     Broadcast1To2,
     Broadcast1To4,
@@ -1016,7 +1014,7 @@ impl BroadcastMode {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum RegType { // TODO Move to different file?
     General,
     Mmx,
