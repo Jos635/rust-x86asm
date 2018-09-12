@@ -183,7 +183,7 @@ pub enum SegmentReg {
     SS
 }
 
-#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+#[derive(PartialEq, Eq, Clone, Copy, Debug, Hash)]
 pub enum Reg {
     AL, AH, AX, EAX, RAX,
     BL, BH, BX, EBX, RBX,
