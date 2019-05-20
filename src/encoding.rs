@@ -244,6 +244,8 @@ pub fn encode_operand(buffer: &mut InstructionBuffer, def: &OperandDefinition, o
     mode: Mode, addr_size: OperandSize) -> Result<(), InstructionEncodingError> {
     if let OperandType::Fixed(_) = def.op_type { return Ok(()); }
 
+    println!("Encoding operand: {:?} {:?}", def, op);
+
     match def.encoding {
         OperandEncoding::ModRmReg => { 
             if let Some(Operand::Direct(reg)) = *op {
@@ -294,7 +296,12 @@ pub fn encode_operand(buffer: &mut InstructionBuffer, def: &OperandDefinition, o
         },
         OperandEncoding::OpcodeAddend => {
             if let Some(Operand::Direct(reg)) = *op {
+                let reg_code = reg.get_reg_code();
                 buffer.opcode_add = Some(reg.get_reg_code());
+                
+                if reg_code > 0x7 && buffer.composite_prefix.is_none() {
+                    buffer.composite_prefix = Some(::instruction_buffer::CompositePrefix::Rex);
+                }
             } else { panic!("Internal error."); }
         },
         OperandEncoding::Fixed => {}
