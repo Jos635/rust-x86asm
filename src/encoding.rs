@@ -244,8 +244,6 @@ pub fn encode_operand(buffer: &mut InstructionBuffer, def: &OperandDefinition, o
     mode: Mode, addr_size: OperandSize) -> Result<(), InstructionEncodingError> {
     if let OperandType::Fixed(_) = def.op_type { return Ok(()); }
 
-    println!("Encoding operand: {:?} {:?}", def, op);
-
     match def.encoding {
         OperandEncoding::ModRmReg => { 
             if let Some(Operand::Direct(reg)) = *op {
